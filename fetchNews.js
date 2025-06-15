@@ -1,8 +1,18 @@
 const RSSParser = require("rss-parser");
 const parser = new RSSParser();
+const fs = require("fs");
+const dbPath = "postedLinks.json";
+const keywords = require("./keywords");
+
+const postedLinks = () => JSON.parse(fs.readFileSync(dbPath)).links || [];
+
+const markPosted = (link) => {
+  const data = postedLinks();
+  data.push(link);
+  fs.writeFileSync(dbPath, JSON.stringify({ links: data }, null, 2));
+};
 
 // Optional keyword filtering
-const keywords = ["GPT", "OpenAI", "Transformer", "LLM", "multimodal"];
 
 const fetchRelevantArticle = async (feeds) => {
   for (const url of feeds) {
@@ -12,8 +22,8 @@ const fetchRelevantArticle = async (feeds) => {
       if (!latest) continue;
 
       const title = latest.title || "";
-      if (!keywords.some((k) => title.includes(k))) continue;
-
+      if (!keywords.some((k) => title.toLowerCase().includes(k.toLowerCase())))
+        continue;
       return { title, link: latest.link };
     } catch (err) {
       console.error(`❌ Failed to fetch ${url}:`, err.message);
@@ -22,4 +32,4 @@ const fetchRelevantArticle = async (feeds) => {
   return null;
 };
 
-module.exports = fetchRelevantArticle;
+module.exports = { fetchRelevantArticle, markPosted };

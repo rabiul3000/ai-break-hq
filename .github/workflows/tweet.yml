@@ -2,8 +2,8 @@ name: Twitter Bot Tweet
 
 on:
   schedule:
-    - cron: '0 9,21 * * *' # Run at 09:00 and 21:00 UTC every day
-  workflow_dispatch:        # Optional: allows manual trigger from GitHub UI
+    - cron: '0 9,21 * * *' # Run at 09:00 and 21:00 UTC daily
+  workflow_dispatch:        # Optional: manual trigger
 
 jobs:
   tweet:
@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
+        with:
+          persist-credentials: true  # Needed for git push
 
       - name: 🛠 Set up Node.js
         uses: actions/setup-node@v3
@@ -28,7 +30,7 @@ jobs:
           TWITTER_APP_SECRET: ${{ secrets.TWITTER_APP_SECRET }}
           TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
-      
+
       - name: 🔐 Set up Git user
         run: |
           git config user.name "GitHub Actions Bot"

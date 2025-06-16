@@ -13,22 +13,31 @@ const markPosted = (link) => {
 };
 
 // Optional keyword filtering
-
 const fetchRelevantArticle = async (feeds) => {
+  const alreadyPosted = postedLinks();
+
   for (const url of feeds) {
     try {
       const feed = await parser.parseURL(url);
-      const latest = feed.items[0];
-      if (!latest) continue;
 
-      const title = latest.title || "";
-      if (!keywords.some((k) => title.toLowerCase().includes(k.toLowerCase())))
-        continue;
-      return { title, link: latest.link };
+      for (const item of feed.items) {
+        const title = item.title || "";
+        const link = item.link;
+
+        if (!link || alreadyPosted.includes(link)) continue;
+
+        const matchesKeyword = keywords.some((k) =>
+          title.toLowerCase().includes(k.toLowerCase())
+        );
+        if (!matchesKeyword) continue;
+
+        return { title, link };
+      }
     } catch (err) {
       console.error(`❌ Failed to fetch ${url}:`, err.message);
     }
   }
+
   return null;
 };
 

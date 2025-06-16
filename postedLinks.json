@@ -1,10 +1,15 @@
 {
-    "links": [
-      "https://www.marktechpost.com/2025/06/13/sakana-ai-introduces-text-to-lora-t2l-a-hypernetwork-that-generates-task-specific-llm-adapters-loras-based-on-a-text-description-of-the-task/",
-      "https://www.marktechpost.com/2025/06/13/sakana-ai-introduces-text-to-lora-t2l-a-hypernetwork-that-generates-task-specific-llm-adapters-loras-based-on-a-text-description-of-the-task/",
-      "https://www.marktechpost.com/2025/06/13/sakana-ai-introduces-text-to-lora-t2l-a-hypernetwork-that-generates-task-specific-llm-adapters-loras-based-on-a-text-description-of-the-task/",
-      "https://www.marktechpost.com/2025/06/13/sakana-ai-introduces-text-to-lora-t2l-a-hypernetwork-that-generates-task-specific-llm-adapters-loras-based-on-a-text-description-of-the-task/",
-      "https://www.marktechpost.com/2025/06/14/internal-coherence-maximization-icm-a-label-free-unsupervised-training-framework-for-llms/",
-      "https://www.marktechpost.com/2025/06/14/microsoft-ai-introduces-code-researcher-a-deep-research-agent-for-large-systems-code-and-commit-history/"
-    ]
-  }
+  "links": [
+    "https://www.marktechpost.com/2025/06/13/sakana-ai-introduces-text-to-lora-t2l-a-hypernetwork-that-generates-task-specific-llm-adapters-loras-based-on-a-text-description-of-the-task/",
+    "https://www.marktechpost.com/2025/06/13/sakana-ai-introduces-text-to-lora-t2l-a-hypernetwork-that-generates-task-specific-llm-adapters-loras-based-on-a-text-description-of-the-task/",
+    "https://www.marktechpost.com/2025/06/13/sakana-ai-introduces-text-to-lora-t2l-a-hypernetwork-that-generates-task-specific-llm-adapters-loras-based-on-a-text-description-of-the-task/",
+    "https://www.marktechpost.com/2025/06/13/sakana-ai-introduces-text-to-lora-t2l-a-hypernetwork-that-generates-task-specific-llm-adapters-loras-based-on-a-text-description-of-the-task/",
+    "https://www.marktechpost.com/2025/06/14/internal-coherence-maximization-icm-a-label-free-unsupervised-training-framework-for-llms/",
+    "https://www.marktechpost.com/2025/06/14/microsoft-ai-introduces-code-researcher-a-deep-research-agent-for-large-systems-code-and-commit-history/",
+    "https://www.marktechpost.com/2025/06/14/othink-r1-a-dual-mode-reasoning-framework-to-cut-redundant-computation-in-llms/",
+    "https://www.marktechpost.com/2025/06/15/epfl-researchers-unveil-fg2-at-cvpr-a-new-ai-model-that-slashes-localization-errors-by-28-for-autonomous-vehicles-in-gps-denied-environments/",
+    "https://www.marktechpost.com/2025/06/14/building-ai-powered-applications-using-the-plan-%e2%86%92-files-%e2%86%92-code-workflow-in-tinydev/",
+    "https://www.marktechpost.com/2025/06/14/ai-generated-ad-created-with-googles-veo3-airs-during-nba-finals-slashing-production-costs-by-95/",
+    "https://the-decoder.com/chatgpt-lost-badly-to-ataris-1979-video-chess-engine/"
+  ]
+}

@@ -10,24 +10,16 @@ const runBot = async () => {
   if (article) {
     const tweeted = await tweetNews(article);
     if (tweeted) {
-      markPosted(article.link);
+      await markPosted(article.link);
     }
   } else {
     console.log("⚠️ No relevant articles found.");
   } // ← duplicate blocker
 };
 
-
 // ── schedule: minute 10 of every hour ─────────────────────────
 
-cron.schedule("57 11 * * *", runBot, {timezone: "Asia/Dhaka"});
-
-
-console.log("📅 App is Running...");
-
-
+cron.schedule("14 14 * * *", runBot, { timezone: "Asia/Dhaka" });
 
 // Keep process alive
-setInterval(() => {}, 1e9);   // dummy 16‑minute timer
-
-
+setInterval(() => {}, 1e9); // dummy 16‑minute timer

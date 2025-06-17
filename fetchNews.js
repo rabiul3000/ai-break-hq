@@ -1,20 +1,29 @@
 const RSSParser = require("rss-parser");
 const parser = new RSSParser();
-const fs = require("fs");
-const dbPath = "postedLinks.json";
+const supabase = require("./db");
 const keywords = require("./keywords");
 
-const postedLinks = () => JSON.parse(fs.readFileSync(dbPath)).links || [];
-
-const markPosted = (link) => {
-  const data = postedLinks();
-  data.push(link);
-  fs.writeFileSync(dbPath, JSON.stringify({ links: data }, null, 2));
+// Get all posted links from Supabase
+const postedLinks = async () => {
+  const { data, error } = await supabase.from("posted_links").select("url");
+  if (error) {
+    console.error("Error fetching links:", error.message);
+    return [];
+  }
+  return data.map((row) => row.url);
 };
 
-// Optional keyword filtering
+// Insert a new posted link
+const markPosted = async (url) => {
+  const { error } = await supabase.from("posted_links").insert({ url });
+  if (error) {
+    console.error("Error inserting link:", error.message);
+  }
+};
+
+// Fetch and filter relevant articles
 const fetchRelevantArticle = async (feeds) => {
-  const alreadyPosted = postedLinks();
+  const alreadyPosted = await postedLinks();
 
   for (const url of feeds) {
     try {

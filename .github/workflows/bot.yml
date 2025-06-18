@@ -2,7 +2,16 @@ name: Run Twitter Bot
 
 on:
   schedule:
-    - cron: '00 5 * * *'
+    # Monday to Thursday
+    - cron: "0 5 * * 1-4" # 5 AM UTC:11AM BD
+    - cron: "0 11 * * 1-4" # 11 AM UTC:5PM BD
+    - cron: "0 16 * * 1-4" # 4 PM UTC:10PM BD
+    # Friday
+    - cron: "0 5 * * 5" # 5 AM UTC:11AM BD
+    - cron: "0 11 * * 5" # 11 AM UTC:5PM BD
+    # Saturday
+    - cron: "0 8 * * 6" # 8 AM UTC:2PM BD
+    - cron: "0 14 * * 6" # 2 PM UTC:8PM BD
   workflow_dispatch:
 
 jobs:
@@ -15,9 +24,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'          
-          
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm install

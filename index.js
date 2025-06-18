@@ -1,4 +1,4 @@
-const cron = require("node-cron");
+// const cron = require("node-cron");
 const feeds = require("./feeds");
 const { fetchRelevantArticle, markPosted } = require("./fetchNews");
 const tweetNews = require("./tweetNews");
@@ -17,9 +17,11 @@ const runBot = async () => {
   } // ← duplicate blocker
 };
 
+runBot()
+
 // ── schedule: minute 10 of every hour ─────────────────────────
 
-cron.schedule("14 14 * * *", runBot, { timezone: "Asia/Dhaka" });
+// cron.schedule("29 14 * * *", runBot, { timezone: "Asia/Dhaka" });
 
 // Keep process alive
-setInterval(() => {}, 1e9); // dummy 16‑minute timer
+// setInterval(() => {}, 1e9); // dummy 16‑minute timer

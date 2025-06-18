@@ -18,10 +18,3 @@ const runBot = async () => {
 };
 
 runBot()
-
-// ── schedule: minute 10 of every hour ─────────────────────────
-
-// cron.schedule("29 14 * * *", runBot, { timezone: "Asia/Dhaka" });
-
-// Keep process alive
-// setInterval(() => {}, 1e9); // dummy 16‑minute timer

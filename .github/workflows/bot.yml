@@ -2,7 +2,7 @@ name: Run Twitter Bot
 
 on:
   schedule:
-    - cron: '10 4 * * *'   # 9 AM Dhaka Time
+    - cron: '28 4 * * *'   # 9 AM Dhaka Time
     - cron: '10 15 * * *'  # 9 PM Dhaka Time
   workflow_dispatch:
 

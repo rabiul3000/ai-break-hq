@@ -13,4 +13,5 @@ module.exports = [
   "text-to-video",
   "gemini",
   "AI",
+  "Machine Learning",
 ];

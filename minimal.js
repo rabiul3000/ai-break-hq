@@ -72,7 +72,26 @@ const client = new TwitterApi({
 
 // tweetNews.js content
 const tweetNews = async ({ title, link }) => {
-  const tweet = `🧠 ${title}\n${link} #AI #MachineLearning`;
+  // const tweet = `🧠 ${title}\n${link} #AI #MachineLearning`;
+  const emojis = ["🧠", "🤖", "🚀", "📢", "📰", "💡", "🔍", "🧬"];
+  const hashtagPool = [
+    "AI", "MachineLearning", "DeepLearning", "ChatGPT", "OpenAI", "LLM", "NLP",
+    "NeuralNetworks", "GenAI", "Transformers", "Veo", "Gato", "Multimodal",
+    "TechNews", "ArtificialIntelligence", "AIAgent", "DataScience"
+  ];
+ 
+  // Pick a random emoji
+  const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+  
+  // Pick 2–3 random unique hashtags
+  const shuffledTags = hashtagPool.sort(() => 0.5 - Math.random());
+  const selectedTags = shuffledTags.slice(0, Math.floor(Math.random() * 2) + 2);
+  const hashtags = selectedTags.map(tag => `#${tag}`).join(" ");
+
+  // Build the tweet
+  const tweet = `${emoji} ${title}\n${link}\n${hashtags}`;
+  
   try {
     await client.v2.tweet(tweet);
     console.log("✅ Tweeted:", tweet);
@@ -137,7 +156,7 @@ const fetchRelevantArticle = async (feeds) => {
 
 
 // index.js content (original)
-const cron = require("node-cron");
+// const cron = require("node-cron");
 
 // ── the work we want to do every run ───────────────────────────
 const runBot = async () => {
@@ -154,11 +173,3 @@ const runBot = async () => {
 };
 
 runBot();
-
-
-// ── schedule: minute 10 of every hour ─────────────────────────
-
-// cron.schedule("29 14 * * *", runBot, { timezone: "Asia/Dhaka" });
-
-// Keep process alive
-// setInterval(() => {}, 1e9); // dummy 16‑minute timer

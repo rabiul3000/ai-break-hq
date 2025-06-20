@@ -1,5 +1,5 @@
 const { fetchRelevantArticle, markPosted } = require("./fetchNews");
-const { getFeedsFromDB } = require("./getFeedsFromDB");
+const getFeedsFromDB = require("./getFeedsFromDB");
 const tweetNews = require("./tweetNews");
 
 // ── the work we want to do every run ───────────────────────────

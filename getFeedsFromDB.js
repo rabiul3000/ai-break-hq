@@ -11,4 +11,4 @@ const getFeedsFromDB = async () => {
   return data.map((row) => row.url);
 };
 
-module.exports = { getFeedsFromDB };
+module.exports = getFeedsFromDB;

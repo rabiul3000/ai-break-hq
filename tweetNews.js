@@ -4,23 +4,19 @@ const tweetNews = async ({ title, link }) => {
   
   const emojis = ["🧠", "🤖", "🚀", "📢", "📰", "💡", "🔍", "🧬"];  
   const hashtagPool = [
-    "AI",
-    "MachineLearning",
-    "DeepLearning",
     "ChatGPT",
     "OpenAI",
     "LLM",
     "NLP",
-    "NeuralNetworks",
     "GenAI",
-    "Transformers",
     "Veo 3",
     "Gato",
-    "Multimodal",
-    "TechNews",
-    "ArtificialIntelligence",
-    "AIAgent",
-    "DataScience",
+    "Deepseek",
+    "midjourney",
+    "Gemini",
+    "text-to-speech",
+    "text-to-video",
+    "AI",
   ];
 
   // Pick a random emoji

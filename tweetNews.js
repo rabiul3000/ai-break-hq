@@ -32,7 +32,7 @@ const tweetNews = async ({ title, link }) => {
   const cta = ctaPool[Math.floor(Math.random() * ctaPool.length)];
 
   // Compose final tweet
-  const tweet = `${emoji} ${title.trim()}\n${link}\n${hashtags}\n\n${cta}`;
+  const tweet = `${emoji} ${title.trim()}\n${link}\n\n${cta}\n${hashtags}`;
 
   try {
     await client.v2.tweet(tweet);

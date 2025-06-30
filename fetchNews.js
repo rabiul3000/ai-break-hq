@@ -3,7 +3,6 @@ const parser = new RSSParser();
 const supabase = require("./db");
 const keywords = require("./keywords");
 
-// Get all posted links from Supabase
 const postedLinks = async () => {
   const { data, error } = await supabase.from("posted_links").select("url");
   if (error) {
@@ -13,7 +12,6 @@ const postedLinks = async () => {
   return data.map((row) => row.url);
 };
 
-// Insert a new posted link
 const markPosted = async (url) => {
   const { error } = await supabase.from("posted_links").insert({ url });
   if (error) {
@@ -21,49 +19,67 @@ const markPosted = async (url) => {
   }
 };
 
-// Fetch and filter the most recent relevant article from all feeds
 const fetchRelevantArticle = async (feeds) => {
-  const alreadyPosted = await postedLinks(); // updated
-  const matches = []; // updated
+  const alreadyPosted = await postedLinks();
+  const matches = [];
 
   for (const url of feeds) {
     try {
       const feed = await parser.parseURL(url);
-      console.log(`🔍 Checking feed: ${feed.title} (${url})`); // updated
+      console.log(`🔍 Checking feed: ${feed.title} (${url})`);
 
       for (const item of feed.items) {
         const title = item.title || "";
         const content = item.contentSnippet || item.content || "";
         const link = item.link;
-
         const pubDate = new Date(item.pubDate || item.isoDate);
-        if (isNaN(pubDate)) continue; // updated: skip if no valid date
 
-        if (!link || alreadyPosted.includes(link)) continue;
+        if (!link || isNaN(pubDate) || alreadyPosted.includes(link)) continue;
 
-        const textToSearch = (title + " " + content).toLowerCase();
-        const matchedKeyword = keywords.find((k) => {
-          const regex = new RegExp(`\\b${k}\\b`, "i");
-          return regex.test(textToSearch);
-        });
+        const fullText = (title + " " + content).toLowerCase();
 
-        if (!matchedKeyword) continue;
+        let score = 0;
+        const matchedKeywords = [];
 
-        console.log(`✅ Matched keyword "${matchedKeyword}" in: ${title}`);
-        matches.push({ title, link, pubDate });
+        for (const keyword of keywords) {
+          const lowerKeyword = keyword.toLowerCase();
+          if (fullText.includes(lowerKeyword)) {
+            if (title.toLowerCase().includes(lowerKeyword)) {
+              score += 4;
+            } else {
+              score += 2;
+            }
+            matchedKeywords.push(keyword);
+          }
+        }
+
+        if (score > 0) {
+          matches.push({ title, link, pubDate, score, matchedKeywords });
+        }
       }
     } catch (err) {
       console.error(`❌ Failed to fetch ${url}:`, err.message);
     }
   }
 
-  // Sort matches by pubDate descending (newest first) and return top one
   if (matches.length > 0) {
-    matches.sort((a, b) => b.pubDate - a.pubDate); // updated
-    return { title: matches[0].title, link: matches[0].link }; // updated
+    matches.sort((a, b) => b.score - a.score || b.pubDate - a.pubDate);
+    const best = matches[0];
+
+    // 🧠 Final log
+    console.log("✅ Selected Article:");
+    console.log("📰 Title:", best.title);
+    console.log("🔗 Link:", best.link);
+    console.log("🗞️ Published At:", best.pubDate.toLocaleString());
+    console.log("🕒 Selected At:", new Date().toLocaleString());
+    console.log("🎯 Reason: Score =", best.score);
+    console.log("🔑 Matched Keywords:", best.matchedKeywords.join(", "));
+
+    return { title: best.title, link: best.link };
   }
 
-  return null; // updated
+  console.log("⚠️ No relevant articles found.");
+  return null;
 };
 
 module.exports = { fetchRelevantArticle, markPosted };

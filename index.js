@@ -17,4 +17,14 @@ const runBot = async () => {
   } // ← duplicate blocker
 };
 
-runBot();
+//runBot();
+runBot()
+  .then(() => {
+    console.log("✅ Done.");
+    process.exit(0); // 🔥 Forcefully ends process — no hanging
+  })
+  .catch((err) => {
+    console.error("💥 Uncaught error:", err);
+    process.exit(1); // exits with error code if something goes wrong
+  });
+

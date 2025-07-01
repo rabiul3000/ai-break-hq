@@ -1,32 +1,43 @@
-require("dotenv").config(); // if you use .env
+const { openai } = require("openrouter");
+const systemPrompt = `
+You are a helpful social media assistant.
+Given an article title and link, generate a concise, engaging Twitter post.
+Use natural language, relevant emojis, 2-3 hashtags, and a brief CTA.
+If the title ends in a question mark, add "🤔" after the line.
 
-const { createOpenRouter } = require("@openrouter/ai-sdk-provider");
-const openrouter = createOpenRouter({
-  apiKey: process.env.OPENROUTER_API_KEY,
-});
+Make the tweet human-like, smart, and informal but clear.
+Avoid overly generic tones. Keep it under 280 characters.
 
+Format:
+<Tweet text including emojis, hashtags, CTA and the link>
+`;
 
-async function generateTweetFromTitle(title, link) {
-    const prompt = `
-  You are a social media expert. Format the following AI-related article into a single tweet:
-  - Add a fitting emoji at the start.  
-  - If title ends with a question, include 🤔 after it.
-  - Add a strong CTA that encourages to follow @aibreakhq.
-  - Add 2-3 relevant, trending hashtags.
-  - Include the link at the end.
-  - Max 280 characters. Return only the tweet text.
-  
-  Title: "${title}"
-  Link: ${link}
-  `;
-  
-    const response = await openrouter.chat("mistralai/mixtral-8x7b", [
-      { role: "system", content: "You are a witty tweet writer." },
-      { role: "user", content: prompt }
-    ]);
-  
-    return response.choices?.[0]?.message?.content.trim() || null;
+const generateTweetFromTitle = async ({ title, link }) => {
+  try {
+    const res = await openai.chat.completions.create({
+      model: "mistralai/mixtral-8x7b",
+      messages: [
+        { role: "system", content: systemPrompt },
+        {
+          role: "user",
+          content: `Title: ${title}\nLink: ${link}`,
+        },
+      ],
+      temperature: 0.7,
+    });
+
+    const output = res.choices?.[0]?.message?.content?.trim();
+
+    if (!output || output.length < 10) {
+      console.error("⚠️ Empty or invalid tweet from AI:", output);
+      throw new Error("AI returned no tweet");
+    }
+
+    return output;
+  } catch (err) {
+    console.error("🚨 Error from AI model:", err.message);
+    throw new Error("AI returned no tweet");
   }
-  
+};
 
-  module.exports = {generateTweetFromTitle}
+module.exports = generateTweetFromTitle;

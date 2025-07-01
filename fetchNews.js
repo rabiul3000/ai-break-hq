@@ -33,6 +33,8 @@ const fetchRelevantArticle = async (feeds) => {
         const content = item.contentSnippet || item.content || "";
         const link = item.link;
         const pubDate = new Date(item.pubDate || item.isoDate);
+        const threeDaysAgo = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000);
+        if (pubDate < threeDaysAgo) continue;
 
         if (!link || isNaN(pubDate) || alreadyPosted.includes(link)) continue;
 

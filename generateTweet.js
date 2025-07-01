@@ -1,53 +1,49 @@
 require('dotenv').config();
 
-const generateTweetFromTitle = async ({ title, link }) => {
-    const { streamText } = await import('ai');
-    const { createOpenRouter } = await import('@openrouter/ai-sdk-provider');
 
-    const openrouter = createOpenRouter({
-        apiKey: process.env.OPENROUTER_API_KEY,
-    });
+const OpenAI = require('openai');
 
-    const model = openrouter('anthropic/claude-3.5-sonnet:beta'); // Claude 3.5 Sonnet or update model if needed
 
-    const prompt = `
-            You are a witty AI social media assistant. Rewrite this article title into an engaging Twitter post (max 280 characters), including:
-            - Relevant emojis
-            - 2-3 AI-related hashtags
-            - A casual but informative CTA
-            - If the title is a question, add "🤔" emoji at the end
+const openai = new OpenAI({
+  baseURL: 'https://openrouter.ai/api/v1',
+  apiKey: process.env.OPENROUTER_API_KEY,
+});
 
+
+
+async function generateTweetFromTitle(title, link) {
+
+  const prompt = `You are a social media content writer for the Twitter handle @aibreakhq.
+      
+Take the following article title and generate an engaging tweet (max 280 characters) that includes:
+- A short but punchy rewrite of the headline
+- The direct link to the article
+- A casual but persuasive CTA that encourages users to follow @aibreakhq (e.g. "Join us", "Stay tuned", "Discover more with @aibreakhq")
+- 2-3 relevant and real hashtags (from tech and AI trends)
+- Include "🤔" **only if the original title is a question**
+- Keep emoji natural (1–2 max)
+
+Do NOT include angle brackets <> around the link.
 Title: ${title}
 Link: ${link}
+
+
 `;
 
-    try {
-        const result = await streamText({
-            model,
-            messages: [{ role: 'user', content: prompt }],
-            providerOptions: {
-                openrouter: {
-                    reasoning: {
-                        max_tokens: 280,
-                    },
-                },
-            },
-        });
 
-        let fullText = '';
-        for await (const delta of result.textStream) {
-            fullText += delta;
-        }
+  const completion = await openai.chat.completions.create({
+    // model: 'mistralai/mixtral-8x7b-instruct',  
+    // model: 'nvidia/llama-3.3-nemotron-super-49b-v1:free',
+    model: 'deepseek/deepseek-v3-base:free',
 
-        if (!fullText || fullText.length < 10) {
-            throw new Error("AI returned no tweet");
-        }
+    messages: [
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ],
+  });
 
-        return fullText.trim();
-    } catch (error) {
-        console.error("❌ AI generation failed:", error.message);
-        throw error;
-    }
-};
-
+  return completion.choices[0].message;
+}
 module.exports = generateTweetFromTitle;

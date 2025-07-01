@@ -1,5 +1,5 @@
+const generateTweetFromTitle = require("./generateTweet");
 const client = require("./twitterClient");
-const { generateTweetFromTitle } = require("./generateTweet");
 
 async function tweetNews({ title, link }) {
   try {

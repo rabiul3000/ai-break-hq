@@ -13,6 +13,7 @@
   "dependencies": {
     "@openrouter/ai-sdk-provider": "^0.7.2",
     "@supabase/supabase-js": "^2.50.0",
+    "ai": "^4.3.16",
     "dotenv": "^16.5.0",
     "rss-parser": "^3.13.0",
     "twitter-api-v2": "^1.23.2"

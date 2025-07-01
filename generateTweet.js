@@ -1,43 +1,53 @@
-const { openai } = require("openrouter");
-const systemPrompt = `
-You are a helpful social media assistant.
-Given an article title and link, generate a concise, engaging Twitter post.
-Use natural language, relevant emojis, 2-3 hashtags, and a brief CTA.
-If the title ends in a question mark, add "🤔" after the line.
-
-Make the tweet human-like, smart, and informal but clear.
-Avoid overly generic tones. Keep it under 280 characters.
-
-Format:
-<Tweet text including emojis, hashtags, CTA and the link>
-`;
+require('dotenv').config();
 
 const generateTweetFromTitle = async ({ title, link }) => {
-  try {
-    const res = await openai.chat.completions.create({
-      model: "mistralai/mixtral-8x7b",
-      messages: [
-        { role: "system", content: systemPrompt },
-        {
-          role: "user",
-          content: `Title: ${title}\nLink: ${link}`,
-        },
-      ],
-      temperature: 0.7,
+    const { streamText } = await import('ai');
+    const { createOpenRouter } = await import('@openrouter/ai-sdk-provider');
+
+    const openrouter = createOpenRouter({
+        apiKey: process.env.OPENROUTER_API_KEY,
     });
 
-    const output = res.choices?.[0]?.message?.content?.trim();
+    const model = openrouter('anthropic/claude-3.5-sonnet:beta'); // Claude 3.5 Sonnet or update model if needed
 
-    if (!output || output.length < 10) {
-      console.error("⚠️ Empty or invalid tweet from AI:", output);
-      throw new Error("AI returned no tweet");
+    const prompt = `
+            You are a witty AI social media assistant. Rewrite this article title into an engaging Twitter post (max 280 characters), including:
+            - Relevant emojis
+            - 2-3 AI-related hashtags
+            - A casual but informative CTA
+            - If the title is a question, add "🤔" emoji at the end
+
+Title: ${title}
+Link: ${link}
+`;
+
+    try {
+        const result = await streamText({
+            model,
+            messages: [{ role: 'user', content: prompt }],
+            providerOptions: {
+                openrouter: {
+                    reasoning: {
+                        max_tokens: 280,
+                    },
+                },
+            },
+        });
+
+        let fullText = '';
+        for await (const delta of result.textStream) {
+            fullText += delta;
+        }
+
+        if (!fullText || fullText.length < 10) {
+            throw new Error("AI returned no tweet");
+        }
+
+        return fullText.trim();
+    } catch (error) {
+        console.error("❌ AI generation failed:", error.message);
+        throw error;
     }
-
-    return output;
-  } catch (err) {
-    console.error("🚨 Error from AI model:", err.message);
-    throw new Error("AI returned no tweet");
-  }
 };
 
 module.exports = generateTweetFromTitle;

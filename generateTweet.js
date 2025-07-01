@@ -32,8 +32,8 @@ Link: ${link}
 
 
   const completion = await openai.chat.completions.create({
-    // model: 'mistralai/mixtral-8x7b-instruct',  
-    model: 'nvidia/llama-3.3-nemotron-super-49b-v1:free',
+     model: 'mistralai/mixtral-8x7b-instruct',  
+    // model: 'nvidia/llama-3.3-nemotron-super-49b-v1:free',
     // model: 'deepseek/deepseek-v3-base:free',
 
     messages: [

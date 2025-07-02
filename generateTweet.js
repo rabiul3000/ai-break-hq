@@ -24,7 +24,7 @@ async function generateTweetFromTitle(title, link) {
              on a new line add 2-3 trending and relevant hashtags (e.g., #AI #TechNews #ArtificialIntelligence etc).
              - keep the whole tweet under 280 characters, including the full link address.
              - include the full web link address - ${link} in the tweet, not shortened.
-             - add extra blank line after each phrase.
+             - add extra blank line after each phrase for clean readability.
              `,
         },
       ],

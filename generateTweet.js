@@ -11,7 +11,7 @@ async function generateTweetFromTitle(title, link) {
 
   Write an engaging tweet for the provided title and link, promoting the given AI-related topic in an exciting and concise tone. Highlight the significance of the news and include a thought-provoking question related to the topic. Include a call-to-action to follow my handle @aibreakhq
 . Place the link after a varied introductory phrase (e.g., "Check it out:", "Dive in:", or "Learn more:") followed by a line break, then add the CTA sentence "Follow @aibreakhq
- for AI updates!" on a new line, followed by another line break, and end with some relevant hashtags (e.g., #AI #TechNews #ArtificialIntelligence).
+ for AI updates!" on a new line, followed by another line break, and end with some trending and relevant hashtags (e.g., #AI #TechNews #ArtificialIntelligence etc).
 
 
   

@@ -18,7 +18,7 @@ async function generateTweetFromTitle(title, link) {
           content: ` 
 You are the tweet writer for AI BREAK HQ Twitter handle. now write a engaging tweet based on Title: ${title} and Link: ${link}.
 - add the full url link.
-- keep the tweet less then 280 charecters
+- keep the tweet in 250 charecters.
           `,
         },
       ],

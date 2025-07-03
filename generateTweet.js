@@ -16,15 +16,8 @@ async function generateTweetFromTitle(title, link) {
         {
           role: "assistant",
           content: ` 
-Generate a tweet under 280 characters using this exact Demo tweet structure but in different tone and words based on Title: ${title} and Link: ${link}:  
-
-Demo tweet -   
-😱 Google's Veo 3 AI is being used to create racist videos🚨 flooding TikTok. How did safety checks fail this badly?  
-
-https://arstechnica.com/ai/2025/07/racist-ai-videos-created-with-google-veo-3-are-proliferating-on-tiktok/  
-
-Follow @aibreakhq for AI accountability news.  
-#AI #google #veo3
+You are the tweet writer for AI BREAK HQ Twitter handle. now write a  engaging tweet based on Title: ${title} and Link: ${link}.
+- add the full url link.
           `,
         },
       ],

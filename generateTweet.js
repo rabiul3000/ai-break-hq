@@ -35,12 +35,12 @@ async function generateTweetFromTitle(title, link) {
 ---  
 
 **Example Output (269 chars):**  
-"Google's Veo 3 AI is being used to create racist videos flooding TikTok. How did safety checks fail this badly?  
+😱 Google's Veo 3 AI is being used to create racist videos🚨 flooding TikTok. How did safety checks fail this badly?  
 
 https://arstechnica.com/ai/2025/07/racist-ai-videos-created-with-google-veo-3-are-proliferating-on-tiktok/  
 
 Follow @aibreakhq for AI accountability news.  
-#AIethics #TechFail"
+#AI #google #veo3"
           `
              
         },

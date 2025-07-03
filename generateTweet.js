@@ -10,39 +10,22 @@ async function generateTweetFromTitle(title, link) {
   try {
     console.log({ msg: "generating tweet...", title, link });
     const completion = await openai.chat.completions.create({
-       model: 'mistralai/mixtral-8x7b-instruct',
-     // model: "deepseek/deepseek-r1-distill-llama-70b:free",
+      model: "mistralai/mixtral-8x7b-instruct",
+      // model: "deepseek/deepseek-r1-distill-llama-70b:free",
       messages: [
         {
           role: "user",
           content: ` 
-*"Generate a tweet under 280 characters using this exact structure:  
+Generate a tweet under 280 characters using this exact Demo tweet structure but in different tone and words based on Title: ${title} and Link: ${link}:  
 
-1. **Hook (1 line):** Bold, shocking fact about ${title}.  
-2. **Question (1 line):** Short thought-provoking Q.  
-3. **Link:** Full URL (https://example.com).  
-4. **CTA:** 'Follow @aibreakhq for AI news.'  
-5. **Hashtags:** 2-3 relevant tags.  
-
-**Current Topic:** ${title}
-**Link:** ${link} 
-
-*Requirements:*  
-- Max 275 chars (leave space for retweets)  
-- No vague phrases like 'read more'  
-- Emoji only if it fits tone (e.g., 😱/🚨 for urgency)"*  
-
----  
-
-**Example Output (269 chars):**  
+Demo tweet -   
 😱 Google's Veo 3 AI is being used to create racist videos🚨 flooding TikTok. How did safety checks fail this badly?  
 
 https://arstechnica.com/ai/2025/07/racist-ai-videos-created-with-google-veo-3-are-proliferating-on-tiktok/  
 
 Follow @aibreakhq for AI accountability news.  
-#AI #google #veo3"
-          `
-             
+#AI #google #veo3
+          `,
         },
       ],
     });

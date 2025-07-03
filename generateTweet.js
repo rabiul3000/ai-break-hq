@@ -14,7 +14,7 @@ async function generateTweetFromTitle(title, link) {
       // model: "deepseek/deepseek-r1-distill-llama-70b:free",
       messages: [
         {
-          role: "assistant",
+          role: "user",
           content: ` 
 You are the tweet writer for AI BREAK HQ Twitter handle. now write a engaging tweet based on Title: ${title} and Link: ${link}.
 - add the full url link.

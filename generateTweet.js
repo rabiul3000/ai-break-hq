@@ -14,7 +14,7 @@ async function generateTweetFromTitle(title, link) {
       // model: "deepseek/deepseek-r1-distill-llama-70b:free",
       messages: [
         {
-          role: "user",
+          role: "assistant",
           content: ` 
 Generate a tweet under 280 characters using this exact Demo tweet structure but in different tone and words based on Title: ${title} and Link: ${link}:  
 

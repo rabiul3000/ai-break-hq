@@ -15,17 +15,34 @@ async function generateTweetFromTitle(title, link) {
       messages: [
         {
           role: "user",
-          content: `
-             Write an engaging tweet for the provided ${title} and ${link}, promoting the given AI-related topic in an exciting and concise tone.
-             Highlight the significance of the news and include a thought-provoking question related to the topic.
-             Include a call-to-action to follow my handle @aibreakhq.
-             Place the full link after a varied introductory phrase (e.g., "Check it out:", "Dive in:", or "Learn more:")
-             On a new line add the CTA sentence "Follow @aibreakhq for AI updates!".
-             on a new line add 2-3 trending and relevant hashtags (e.g., #AI #TechNews #ArtificialIntelligence etc).
-             - keep the whole tweet under 280 characters, including the full link address.
-             - include the full web link address - ${link} in the tweet, not shortened.
-             - add extra blank line after each phrase for clean readability.
-             `,
+          content: ` 
+*"Generate a tweet under 280 characters using this exact structure:  
+
+1. **Hook (1 line):** Bold, shocking fact about ${title}.  
+2. **Question (1 line):** Short thought-provoking Q.  
+3. **Link:** Full URL (https://example.com).  
+4. **CTA:** 'Follow @aibreakhq for AI news.'  
+5. **Hashtags:** 2-3 relevant tags.  
+
+**Current Topic:** ${title}
+**Link:** ${link} 
+
+*Requirements:*  
+- Max 275 chars (leave space for retweets)  
+- No vague phrases like 'read more'  
+- Emoji only if it fits tone (e.g., 😱/🚨 for urgency)"*  
+
+---  
+
+**Example Output (269 chars):**  
+"Google's Veo 3 AI is being used to create racist videos flooding TikTok. How did safety checks fail this badly?  
+
+https://arstechnica.com/ai/2025/07/racist-ai-videos-created-with-google-veo-3-are-proliferating-on-tiktok/  
+
+Follow @aibreakhq for AI accountability news.  
+#AIethics #TechFail"
+          `
+             
         },
       ],
     });

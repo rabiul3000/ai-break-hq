@@ -11,13 +11,14 @@ async function generateTweetFromTitle(title, link) {
     const prompt = `
       Generate a creative, engaging tweet (200 characters or less) about based on this Title: ${title}.
       Use a witty tone, include a relevant hashtag, and keep it concise.
-   - Add this full Link: ${link} to read the full article without any anchor brackets.
+   - Add this full Link: ${link} to read the full article.
     `;
     console.log({ msg: "generating tweet...", title, link });
     const completion = await openai.chat.completions.create({
      //  model: "mistralai/mixtral-8x7b-instruct",
-      model: "deepseek/deepseek-r1-distill-llama-70b:free",
+     // model: "deepseek/deepseek-r1-distill-llama-70b:free",
      // model: 'meta-llama/llama-3.1-8b-instruct:free',
+     model : "openrouter/cypher-alpha:free",
       messages: [
         { role: 'system', content: 'You are a creative AI that generates engaging tweets.' },
         { role: 'user', content: prompt },

@@ -8,20 +8,21 @@ const openai = new OpenAI({
 
 async function generateTweetFromTitle(title, link) {
   try {
+    const prompt = `
+      Generate a creative, engaging tweet (200 characters or less) about based on this Title: ${title} and this Link: ${link}.
+      Use a witty tone, include a relevant hashtag, and keep it concise.
+    `;
     console.log({ msg: "generating tweet...", title, link });
     const completion = await openai.chat.completions.create({
-      model: "mistralai/mixtral-8x7b-instruct",
+      // model: "mistralai/mixtral-8x7b-instruct",
       // model: "deepseek/deepseek-r1-distill-llama-70b:free",
+     model: 'meta-llama/llama-3.1-8b-instruct:free',
       messages: [
-        {
-          role: "user",
-          content: ` 
-You are the tweet writer for AI BREAK HQ Twitter handle. now write a engaging tweet based on Title: ${title} and Link: ${link}.
-- add the full url link.
-- keep the tweet in 250 charecters.
-          `,
-        },
+        { role: 'system', content: 'You are a creative AI that generates engaging tweets.' },
+        { role: 'user', content: prompt },
       ],
+      temperature: 0.7, // Controls randomness (0.7 for creative but coherent output)
+      max_tokens: 100, // Limits the characters
     });
 
     console.log(`AI tweet generated: ${completion.choices[0].message.content}`);

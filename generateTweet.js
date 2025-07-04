@@ -10,8 +10,9 @@ async function generateTweetFromTitle(title, link) {
   try {
     const prompt = `
       Generate a creative, engaging tweet (200 characters or less) about based on this Title: ${title}.
-      Use a witty tone, include a relevant hashtag, and keep it concise.
-   - Add this full Link: ${link} to read the full article.
+      Use a witty ton and keep it concise.
+      Add this full Link: ${link} to read the full article.
+      include a few relevant hashtag
     `;
     console.log({ msg: "generating tweet...", title, link });
     const completion = await openai.chat.completions.create({

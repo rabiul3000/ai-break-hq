@@ -14,9 +14,9 @@ async function generateTweetFromTitle(title, link) {
     `;
     console.log({ msg: "generating tweet...", title, link });
     const completion = await openai.chat.completions.create({
-      // model: "mistralai/mixtral-8x7b-instruct",
+       model: "mistralai/mixtral-8x7b-instruct",
       // model: "deepseek/deepseek-r1-distill-llama-70b:free",
-     model: 'meta-llama/llama-3.1-8b-instruct:free',
+     // model: 'meta-llama/llama-3.1-8b-instruct:free',
       messages: [
         { role: 'system', content: 'You are a creative AI that generates engaging tweets.' },
         { role: 'user', content: prompt },

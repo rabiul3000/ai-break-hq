@@ -89,7 +89,7 @@ async function generateTweetFromTitle(title, link) {
     const hashtags = extractHashtags(title);
     const hashtagsLine = hashtags.length ? hashtags.join(" ") : "#AINews";
 
-    const tweet = `${rephrased}\n${randomLinkIntro()}: ${link}\n${hashtagsLine}`;
+    const tweet = `${rephrased}\n\n${randomLinkIntro()}: ${link}\n\n${hashtagsLine}`;
     console.log("✅ Final Tweet:\n", tweet);
     return tweet;
   } catch (err) {

@@ -8,22 +8,22 @@ const openai = new OpenAI({
 
 // ✅ Refined keyword list (hashtags allowed)
 const keywords = [
-  "AI",                 // Broad, high-traffic hashtag; universal appeal
-  "ArtificialIntelligence", // Full term, popular for professional/tech audiences
-  "MachineLearning",    // Core ML hashtag, widely used in tech communities
-  "DeepLearning",       // Trending for advanced AI/ML discussions
-  "GenAI",              // Short for Generative AI, booming in 2025
-  "ChatGPT",            // Still a recognizable name, high engagement
-  "LLM",                // Large Language Models, key for AI enthusiasts
-  "NLP",                // Natural Language Processing, strong for tech niche
-  "DataScience",        // Appeals to data professionals in US/South Asia
-  "TechTrends",         // Broad tech hashtag for 2025 innovations
-  "AIInnovation",       // Highlights AI advancements, resonates globally
-  "Robotics",           // Growing interest in AI-driven robotics
-  "BigData",            // Relevant for AI/ML data application
-  "AIEthics",           // Emerging focus on ethical AI, especially in US
-  "AIRevolution",       // Catchy, motivational hashtag for AI enthusiasts
-  "MultimodalAI",       // Reflects 2025 trend of multimodal models (text, video, audio)
+  "AI",
+  "ArtificialIntelligence",
+  "MachineLearning",
+  "DeepLearning",
+  "GenAI",
+  "ChatGPT",
+  "LLM",
+  "NLP",
+  "DataScience",
+  "TechTrends",
+  "AIInnovation",
+  "Robotics",
+  "BigData",
+  "AIEthics",
+  "AIRevolution",
+  "MultimodalAI",
   "AIAgents",
 ];
 
@@ -37,7 +37,7 @@ const hashtagMap = keywords.reduce((map, word) => {
 const linkPhrases = [
   "Read more at",
   "Full article 👉",
-  "full story here",
+  "Catch the full story here",
   "Details 🔗",
   "More here",
   "Dive in",
@@ -49,39 +49,43 @@ function randomLinkIntro() {
   return linkPhrases[idx];
 }
 
-// Utility to strip surrounding quotes
-function stripQuotes(str) {
-  return str.replace(/^["']+|["']+$/g, '').trim();
+// 🧼 Clean up AI output
+function cleanAIOutput(str) {
+  return str.trim();
 }
 
-// ✍️ Rephrase the title using AI
+// ✍️ Rephrase the title using AI — now with emotional, exclamatory tone
 async function rephraseTitle(title) {
-  const prompt = `Rephrase this title into a short, catchy, and engaging line without changing the meaning:\n"${title}"`;
+  const prompt = `Turn the following article title into a short, catchy, emotionally engaging tweet hook. Make it sound exciting, controversial, or surprising — something that makes people want to reply! End with an exclamation mark or rhetorical question if appropriate.\n\nTitle: ${title}`;
 
   const completion = await openai.chat.completions.create({
     model: "openrouter/cypher-alpha:free",
     messages: [
-      { role: "system", content: "You rephrase headlines to make them more catchy and engaging." },
-      { role: "user", content: prompt },
+      {
+        role: "system",
+        content: "You rewrite headlines to maximize engagement on social media. Make them bold, emotional, and interesting. Always concise.",
+      },
+      {
+        role: "user",
+        content: prompt,
+      },
     ],
-    temperature: 0.5,
+    temperature: 0.7,
     max_tokens: 50,
   });
 
-  return stripQuotes(completion.choices[0].message.content.trim());
+  return cleanAIOutput(completion.choices[0].message.content);
 }
 
 // 🏷️ Extract 2–3 matching hashtags based on title (🔒 currently disabled)
 // function extractHashtags(title) {
 //   const found = new Set();
 //   const lowerTitle = title.toLowerCase();
-
 //   for (const keyword of keywords) {
 //     if (lowerTitle.includes(keyword.toLowerCase())) {
 //       found.add(hashtagMap[keyword.toLowerCase()]);
 //     }
 //   }
-
 //   return Array.from(found).slice(0, 3);
 // }
 

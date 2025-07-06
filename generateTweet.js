@@ -24,7 +24,7 @@ const keywords = [
   "AIEthics",           // Emerging focus on ethical AI, especially in US
   "AIRevolution",       // Catchy, motivational hashtag for AI enthusiasts
   "MultimodalAI",       // Reflects 2025 trend of multimodal models (text, video, audio)
-  "AIAgents",           
+  "AIAgents",
 ];
 
 // 🔁 Create hashtag map (e.g., "openai" => "#OpenAI")
@@ -37,7 +37,7 @@ const hashtagMap = keywords.reduce((map, word) => {
 const linkPhrases = [
   "Read more at",
   "Full article 👉",
-  "Catch the full story here",
+  "full story here",
   "Details 🔗",
   "More here",
   "Dive in",
@@ -71,18 +71,25 @@ async function rephraseTitle(title) {
   return stripQuotes(completion.choices[0].message.content.trim());
 }
 
-// 🏷️ Extract 2–3 matching hashtags based on title
-function extractHashtags(title) {
-  const found = new Set();
-  const lowerTitle = title.toLowerCase();
+// 🏷️ Extract 2–3 matching hashtags based on title (🔒 currently disabled)
+// function extractHashtags(title) {
+//   const found = new Set();
+//   const lowerTitle = title.toLowerCase();
 
-  for (const keyword of keywords) {
-    if (lowerTitle.includes(keyword.toLowerCase())) {
-      found.add(hashtagMap[keyword.toLowerCase()]);
-    }
-  }
+//   for (const keyword of keywords) {
+//     if (lowerTitle.includes(keyword.toLowerCase())) {
+//       found.add(hashtagMap[keyword.toLowerCase()]);
+//     }
+//   }
 
-  return Array.from(found).slice(0, 3);
+//   return Array.from(found).slice(0, 3);
+// }
+
+// 🔀 Select 3 random hashtags from the hashtagMap
+function getRandomHashtags() {
+  const allHashtags = Object.values(hashtagMap);
+  const shuffled = allHashtags.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, 3);
 }
 
 // 🧠 Main tweet generator
@@ -91,7 +98,9 @@ async function generateTweetFromTitle(title, link) {
     console.log("✍️ Rephrasing title...");
     const rephrased = await rephraseTitle(title);
 
-    const hashtags = extractHashtags(title);
+    const hashtags = getRandomHashtags(); // ← using random selection
+    // const hashtags = extractHashtags(title); // ← matching function disabled
+
     const hashtagsLine = hashtags.length ? hashtags.join(" ") : "#AINews";
 
     const tweet = `${rephrased}\n\n${randomLinkIntro()}: ${link}\n\n${hashtagsLine}`;

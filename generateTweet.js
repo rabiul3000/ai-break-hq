@@ -49,6 +49,11 @@ function randomLinkIntro() {
   return linkPhrases[idx];
 }
 
+// Utility to strip surrounding quotes
+function stripQuotes(str) {
+  return str.replace(/^["']+|["']+$/g, '').trim();
+}
+
 // ✍️ Rephrase the title using AI
 async function rephraseTitle(title) {
   const prompt = `Rephrase this title into a short, catchy, and engaging line without changing the meaning:\n"${title}"`;
@@ -63,7 +68,7 @@ async function rephraseTitle(title) {
     max_tokens: 50,
   });
 
-  return completion.choices[0].message.content.trim();
+  return stripQuotes(completion.choices[0].message.content.trim());
 }
 
 // 🏷️ Extract 2–3 matching hashtags based on title

@@ -8,18 +8,23 @@ const openai = new OpenAI({
 
 // ✅ Refined keyword list (hashtags allowed)
 const keywords = [
-  "GPT",
-  "OpenAI",
-  "LLM",
-  "ChatGPT",
-  "DeepSeek",
-  "GenAI",
-  "NLP",
-  "Gato",
-  "Veo",
-  "gemini",
-  "AI",
-  "AINews",
+  "AI",                 // Broad, high-traffic hashtag; universal appeal
+  "ArtificialIntelligence", // Full term, popular for professional/tech audiences
+  "MachineLearning",    // Core ML hashtag, widely used in tech communities
+  "DeepLearning",       // Trending for advanced AI/ML discussions
+  "GenAI",              // Short for Generative AI, booming in 2025
+  "ChatGPT",            // Still a recognizable name, high engagement
+  "LLM",                // Large Language Models, key for AI enthusiasts
+  "NLP",                // Natural Language Processing, strong for tech niche
+  "DataScience",        // Appeals to data professionals in US/South Asia
+  "TechTrends",         // Broad tech hashtag for 2025 innovations
+  "AIInnovation",       // Highlights AI advancements, resonates globally
+  "Robotics",           // Growing interest in AI-driven robotics
+  "BigData",            // Relevant for AI/ML data application
+  "AIEthics",           // Emerging focus on ethical AI, especially in US
+  "AIRevolution",       // Catchy, motivational hashtag for AI enthusiasts
+  "MultimodalAI",       // Reflects 2025 trend of multimodal models (text, video, audio)
+  "AIAgents",           
 ];
 
 // 🔁 Create hashtag map (e.g., "openai" => "#OpenAI")

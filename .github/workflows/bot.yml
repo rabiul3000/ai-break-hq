@@ -2,16 +2,10 @@ name: Run Twitter Bot
 
 on:
   schedule:
-    # Monday to Thursday
-    - cron: "0 5 * * 1-4" # 5 AM UTC:11AM BD
-    - cron: "0 11 * * 1-4" # 11 AM UTC:5PM BD
-    - cron: "0 16 * * 1-4" # 4 PM UTC:10PM BD
-    # Friday
-    - cron: "0 5 * * 5" # 5 AM UTC:11AM BD
-    - cron: "0 11 * * 5" # 11 AM UTC:5PM BD
-    # Saturday
-    - cron: "0 8 * * 6" # 8 AM UTC:2PM BD
-    - cron: "0 14 * * 6" # 2 PM UTC:8PM BD
+    # Monday to Sunday (same schedule for consistency)
+    - cron: "0 10 * * 0-6"  # 4:00 PM BD (10:00 AM UTC) → 6:00 AM ET / 3:00 AM PT (early morning)
+    - cron: "0 14 * * 0-6"  # 8:00 PM BD (2:00 PM UTC) → 10:00 AM ET / 7:00 AM PT (morning peak)
+    - cron: "0 22 * * 0-6"  # 4:00 AM BD (10:00 PM UTC) → 6:00 PM ET / 3:00 PM PT (evening peak)
   workflow_dispatch:
 
 jobs:
@@ -40,4 +34,3 @@ jobs:
           TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          

@@ -37,10 +37,10 @@ const hashtagMap = keywords.reduce((map, word) => {
 const linkPhrases = [
   "Read more at",
   "Full article 👉",
-  "Catch the full story here",
+  "full story",
   "Details 🔗",
-  "More here",
-  "Dive in",
+  "More here 👉",
+  "Detail",
 ];
 
 // 🎲 Pick a random link intro phrase
@@ -56,7 +56,7 @@ function cleanAIOutput(str) {
 
 // ✍️ Rephrase the title using AI — now with emotional, exclamatory tone
 async function rephraseTitle(title) {
-  const prompt = `Turn the following article title into a short, catchy, emotionally engaging tweet hook. Make it sound exciting, controversial, or surprising — something that makes people want to reply! End with an exclamation mark or rhetorical question if appropriate.\n\nTitle: ${title}`;
+  const prompt = `Turn the following article title into a short, catchy, emotionally engaging tweet hook. Make it sound exciting, controversial, or surprising — something that makes people want to reply! End with an exclamation mark or rhetorical question if appropriate.Do not use any hashtags\n\nTitle: ${title}`;
 
   const completion = await openai.chat.completions.create({
     model: "openrouter/cypher-alpha:free",
@@ -77,19 +77,6 @@ async function rephraseTitle(title) {
   return cleanAIOutput(completion.choices[0].message.content);
 }
 
-// 🏷️ Extract 2–3 matching hashtags based on title (🔒 currently disabled)
-// function extractHashtags(title) {
-//   const found = new Set();
-//   const lowerTitle = title.toLowerCase();
-//   for (const keyword of keywords) {
-//     if (lowerTitle.includes(keyword.toLowerCase())) {
-//       found.add(hashtagMap[keyword.toLowerCase()]);
-//     }
-//   }
-//   return Array.from(found).slice(0, 3);
-// }
-
-// 🔀 Select 3 random hashtags from the hashtagMap
 function getRandomHashtags() {
   const allHashtags = Object.values(hashtagMap);
   const shuffled = allHashtags.sort(() => 0.5 - Math.random());

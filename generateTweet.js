@@ -56,10 +56,11 @@ function cleanAIOutput(str) {
 
 // ✍️ Rephrase the title using AI — now with emotional, exclamatory tone
 async function rephraseTitle(title) {
-  const prompt = `Turn the following article title into a short, catchy, emotionally engaging tweet hook. Make it sound exciting, controversial, or surprising — something that makes people want to reply! End with an exclamation mark or rhetorical question if appropriate.Do not use any hashtags\n\nTitle: ${title}`;
+  const prompt = `Turn the following article title into a short, catchy, emotionally engaging tweet hook. Make it sound exciting, controversial, or surprising — something that makes people want to reply!Do not use any hashtags\n\nTitle: ${title}`;
 
   const completion = await openai.chat.completions.create({
-    model: "openrouter/cypher-alpha:free",
+   // model: "openrouter/cypher-alpha:free",
+    modal : "moonshotai/kimi-k2:free",
     messages: [
       {
         role: "system",

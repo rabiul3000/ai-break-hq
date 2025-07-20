@@ -60,7 +60,8 @@ async function rephraseTitle(title) {
 
   const completion = await openai.chat.completions.create({
    // model: "openrouter/cypher-alpha:free",
-    model : "moonshotai/kimi-k2:free",
+    //model : "moonshotai/kimi-k2:free",
+    model : "mistralai/mistral-small-3.2-24b-instruct:free"
     messages: [
       {
         role: "system",

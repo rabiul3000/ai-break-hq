@@ -51,7 +51,7 @@ function randomLinkIntro() {
 
 // 🧼 Clean up AI output
 function cleanAIOutput(str) {
-  return str.trim();
+  return str.replace(/^"|"$/g, '');
 }
 
 // ✍️ Rephrase the title using AI — now with emotional, exclamatory tone

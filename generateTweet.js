@@ -1,6 +1,6 @@
 require("dotenv").config();
 const OpenAI = require("openai");
-
+const model = require("./model.js")
 const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
   apiKey: process.env.OPENROUTER_API_KEY,
@@ -58,14 +58,12 @@ function cleanAIOutput(str) {
 async function rephraseTitle(title) {
   const prompt = `Turn the following article title into a short, catchy, emotionally engaging tweet hook. Make it sound exciting, controversial, or surprising — something that makes people want to reply!Do not use any hashtags\n\nTitle: ${title}`;
 
-  const completion = await openai.chat.completions.create({
-   // model: "openrouter/cypher-alpha:free",
-    //model : "moonshotai/kimi-k2:free",
-    model : "mistralai/mistral-small-3.2-24b-instruct:free",
+  const completion = await openai.chat.completions.create(
+    model : model,
     messages: [
       {
         role: "system",
-        content: "You rewrite headlines to maximize engagement on social media. Make them bold, emotional, and interesting. Always concise.",
+        content: "You rewrite headlines to maximize engagement on social media. Make them bold, emotional, and interesting.",
       },
       {
         role: "user",

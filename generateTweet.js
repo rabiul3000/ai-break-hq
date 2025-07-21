@@ -58,7 +58,7 @@ function cleanAIOutput(str) {
 async function rephraseTitle(title) {
   const prompt = `Turn the following article title into a short, catchy, emotionally engaging tweet hook. Make it sound exciting, controversial, or surprising — something that makes people want to reply!Do not use any hashtags\n\nTitle: ${title}`;
 
-  const completion = await openai.chat.completions.create(
+  const completion = await openai.chat.completions.create({
     model : model,
     messages: [
       {

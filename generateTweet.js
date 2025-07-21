@@ -51,7 +51,11 @@ function randomLinkIntro() {
 
 // 🧼 Clean up AI output
 function cleanAIOutput(str) {
-  return str.replace(/^"|"$/g, '');
+  return str
+    .trim()
+    .replace(/^["'“”‘’`]+|["'“”‘’`]+$/g, '') // removes quotes and smart quotes from both ends
+    .replace(/\n+/g, " ")                    // flattens newlines
+    .replace(/\s{2,}/g, " ");
 }
 
 // ✍️ Rephrase the title using AI — now with emotional, exclamatory tone

@@ -15,5 +15,6 @@ module.exports = [
   "AI",
   "Machine Learning",
   "China",
-  "Alibaba"
+  "Alibaba",
+  "Tencent",
 ];

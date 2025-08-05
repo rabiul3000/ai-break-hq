@@ -30,16 +30,23 @@ AI Break HQ is a lightweight, full-stack Node.js bot that fetches trending tech 
 
 ```
 ai-break-hq/
-├── .env                # Twitter API keys & secrets
-├── index.js            # Main execution script
-├── fetchNews.js        # Fetch & filter articles from RSS feeds
-├── generateTweet.js    # Compose tweet content
-├── tweetNews.js        # Tweet posting logic
-├── twitterClient.js    # Twitter API client setup
-├── keywords.js         # List of filter keywords
-├── getFeedsFromDB.js   # (Optional) Load RSS sources from MongoDB
-├── db.js               # MongoDB connection logic
-└── package.json        # Dependencies & scripts
+├──.github 
+|    ├──workflows
+|        ├──bot.yml # file that runs from github actions 
+├── db.js                # Initializes and exports a Supabase client using environment variables
+├── fetchNews.js         # Fetches news from RSS feeds, scores articles based on keywords, and tracks posted links in the DB
+├── generateTweet.js     # Uses OpenRouter to generate catchy tweets from article titles, adding hashtags and link intros
+├── getFeedsFromDB.js    # Loads RSS feed URLs from the Supabase "feeds" table
+├── hashtagWords.js      # Exports a list of words to be used as hashtags in tweets
+├── index.js             # Main entry point: orchestrates fetching news, generating a tweet, tweeting it and marking as posted
+├── keywords.js          # Exports a list of keywords to match against news articles for relevance
+├── model.js             # Specifies which model to use for generating tweet text
+├── package.json         # Project metadata and dependencies for npm
+├── package-lock.json    # Exact dependency versions for npm installs
+├── tweetNews.js         # Composes tweet using AI and posts it to Twitter using the Twitter API client
+├── twitterClient.js     # Initializes and exports a Twitter API client using credentials from environment variables
+
+
 ```
 
 ---

@@ -60,7 +60,7 @@ async function rephraseTitle(title) {
       },
     ],
     temperature: 0.7,
-    max_tokens: 50,
+    max_tokens: 120,
   });
 
   return cleanAIOutput(completion.choices[0].message.content);

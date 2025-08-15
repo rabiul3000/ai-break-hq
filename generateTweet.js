@@ -52,7 +52,7 @@ async function rephraseTitle(title) {
       {
         role: "system",
         content:
-          "You rewrite headlines to maximize engagement on social media. Make them bold, emotional, and interesting.",
+          "You rewrite headlines.",
       },
       {
         role: "user",
